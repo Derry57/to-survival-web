@@ -75,8 +75,14 @@ const Instructors = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <div className="pt-24 pb-16 px-4">
-        <div className="container mx-auto">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="pt-24 pb-16 px-4 min-h-screen relative bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/lovable-uploads/f562b534-f3b9-4e56-8f57-8b8b7fdef032.png')`
+        }}
+      >
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-orbitron font-bold text-rust-400 mb-4 text-glow">
               NAŠI INSTRUKTOŘI
@@ -89,7 +95,7 @@ const Instructors = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {instructors.map((instructor, index) => (
-              <Card key={index} className="rust-texture bg-card/30 border-rust-800/30 hover:border-rust-600/50 transition-all duration-300">
+              <Card key={index} className="rust-texture bg-card/50 backdrop-blur-sm border-rust-800/40 hover:border-rust-600/60 transition-all duration-300">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-4">
@@ -150,7 +156,7 @@ const Instructors = () => {
           </div>
 
           {/* Team Philosophy Section */}
-          <Card className="wasteland-texture bg-card/30 border-wasteland-700/30 mt-12 max-w-4xl mx-auto">
+          <Card className="wasteland-texture bg-card/50 backdrop-blur-sm border-wasteland-700/40 mt-12 max-w-4xl mx-auto">
             <CardHeader className="text-center">
               <CardTitle className="text-3xl font-orbitron font-bold text-wasteland-400">
                 FILOZOFIE TÝMU
@@ -185,7 +191,7 @@ const Instructors = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

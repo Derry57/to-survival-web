@@ -14,7 +14,7 @@ const Navigation = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-rust-500 to-rust-700 rounded-sm flex items-center justify-center">
               <span className="text-white font-orbitron font-bold text-sm">P</span>
             </div>
-            <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">PřežíTO</span>
+            <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">PřežijTO</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">

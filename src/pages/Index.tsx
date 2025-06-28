@@ -16,12 +16,17 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 px-4">
-        <div className="container mx-auto text-center">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="pt-20 pb-16 px-4 min-h-screen relative bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('/lovable-uploads/2a0cd038-b217-410a-bc2f-835540d82bf7.png')`
+        }}
+      >
+        <div className="container mx-auto text-center relative z-10 flex flex-col justify-center min-h-screen">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-6xl md:text-8xl font-orbitron font-black text-rust-400 mb-6 text-glow animate-pulse">
-              PřežíTO
+              PřežijTO
             </h1>
             <p className="text-xl md:text-2xl font-rajdhani text-muted-foreground mb-8 max-w-2xl mx-auto">
               Profesionální survival training pro ty, kteří chtějí být připraveni na vše.

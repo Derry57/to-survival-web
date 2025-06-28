@@ -24,11 +24,11 @@ const Index = () => {
       >
         <div className="container mx-auto text-center relative z-10 flex flex-col justify-center min-h-screen">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-center mb-6">
+            <div className="flex flex-col items-center justify-center mb-6">
               <img 
-                src="/lovable-uploads/5088dbd5-a23d-4216-ad5c-8d0ea388278e.png" 
+                src="/lovable-uploads/019e2001-f49b-46c7-b8af-c84d58987b99.png" 
                 alt="PřežijTO Logo" 
-                className="w-16 h-16 mr-4 opacity-70"
+                className="w-32 h-32 mb-4 opacity-90"
               />
               <h1 className="text-6xl md:text-8xl font-orbitron font-black text-rust-400 text-glow animate-pulse">
                 PřežijTO
@@ -43,9 +43,6 @@ const Index = () => {
               <Link to="/courses">
                 <Card className="rust-texture border-rust-800/30 hover:border-rust-600/50 transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-rust-500 to-rust-700 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">🎯</span>
-                    </div>
                     <h3 className="text-2xl font-orbitron font-bold text-rust-400 mb-2">KURZY</h3>
                     <p className="text-muted-foreground font-rajdhani">
                       Survival kurzy všech úrovní - od základů po pokročilé techniky
@@ -57,9 +54,6 @@ const Index = () => {
               <Link to="/instructors">
                 <Card className="wasteland-texture border-wasteland-700/30 hover:border-wasteland-500/50 transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-wasteland-500 to-wasteland-700 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">👥</span>
-                    </div>
                     <h3 className="text-2xl font-orbitron font-bold text-wasteland-400 mb-2">INSTRUKTOŘI</h3>
                     <p className="text-muted-foreground font-rajdhani">
                       Zkušení profesionálové s léty praxe v extrémních podmínkách
@@ -71,9 +65,6 @@ const Index = () => {
               <Link to="/calendar">
                 <Card className="rust-texture border-rust-800/30 hover:border-rust-600/50 transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-rust-500 to-rust-700 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">📅</span>
-                    </div>
                     <h3 className="text-2xl font-orbitron font-bold text-rust-400 mb-2">KALENDÁŘ</h3>
                     <p className="text-muted-foreground font-rajdhani">
                       Nejbližší termíny kurzů a expedic

@@ -13,7 +13,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/5088dbd5-a23d-4216-ad5c-8d0ea388278e.png" 
+                src="/lovable-uploads/019e2001-f49b-46c7-b8af-c84d58987b99.png" 
                 alt="PřežijTO Logo" 
                 className="w-8 h-8 opacity-80 hover:opacity-100 transition-opacity"
               />

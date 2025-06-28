@@ -85,8 +85,13 @@ const Calendar = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <div className="pt-24 pb-16 px-4">
-        <div className="container mx-auto">
+      <div 
+        className="pt-24 pb-16 px-4 min-h-screen bg-cover bg-center bg-no-repeat relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/48d2055d-26ae-4487-8a7e-bb8316e519c0.png')`
+        }}
+      >
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-orbitron font-bold text-rust-400 mb-4 text-glow">
               KALENDÁŘ KURZŮ

@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,9 +24,16 @@ const Index = () => {
       >
         <div className="container mx-auto text-center relative z-10 flex flex-col justify-center min-h-screen">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-6xl md:text-8xl font-orbitron font-black text-rust-400 mb-6 text-glow animate-pulse">
-              PřežijTO
-            </h1>
+            <div className="flex items-center justify-center mb-6">
+              <img 
+                src="/lovable-uploads/5088dbd5-a23d-4216-ad5c-8d0ea388278e.png" 
+                alt="PřežijTO Logo" 
+                className="w-16 h-16 mr-4 opacity-70"
+              />
+              <h1 className="text-6xl md:text-8xl font-orbitron font-black text-rust-400 text-glow animate-pulse">
+                PřežijTO
+              </h1>
+            </div>
             <p className="text-xl md:text-2xl font-rajdhani text-muted-foreground mb-8 max-w-2xl mx-auto">
               Profesionální survival training pro ty, kteří chtějí být připraveni na vše.
               V post-apokalyptickém světě není místo pro slabé.

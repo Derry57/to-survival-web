@@ -10,9 +10,13 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-rust-800/30">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-rust-500 to-rust-700 rounded-sm flex items-center justify-center">
-              <span className="text-white font-orbitron font-bold text-sm">P</span>
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/5088dbd5-a23d-4216-ad5c-8d0ea388278e.png" 
+                alt="PřežijTO Logo" 
+                className="w-8 h-8 opacity-80 hover:opacity-100 transition-opacity"
+              />
             </div>
             <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">PřežijTO</span>
           </Link>

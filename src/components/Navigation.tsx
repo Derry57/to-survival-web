@@ -1,10 +1,17 @@
 
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 import LoginDialog from "./LoginDialog";
 
 const Navigation = () => {
   const location = useLocation();
+  const { user, signOut } = useAuth();
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-rust-800/30">
@@ -54,9 +61,36 @@ const Navigation = () => {
             >
               KONTAKT
             </Link>
+            {user && (
+              <Link
+                to="/client"
+                className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+                  location.pathname.startsWith("/client") ? "text-rust-400" : "text-foreground"
+                }`}
+              >
+                MŮJE SEKCE
+              </Link>
+            )}
           </div>
 
-          <LoginDialog />
+          <div className="flex items-center space-x-3">
+            {user ? (
+              <>
+                <span className="text-sm font-rajdhani text-foreground">
+                  {user.email}
+                </span>
+                <Button 
+                  onClick={handleSignOut}
+                  variant="outline"
+                  className="border-rust-600 text-rust-600 hover:bg-rust-600 hover:text-white font-rajdhani font-medium"
+                >
+                  ODHLÁSIT SE
+                </Button>
+              </>
+            ) : (
+              <LoginDialog />
+            )}
+          </div>
         </div>
       </div>
     </nav>

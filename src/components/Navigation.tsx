@@ -13,12 +13,12 @@ const Navigation = () => {
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/019e2001-f49b-46c7-b8af-c84d58987b99.png" 
-                alt="PřežijTO Logo" 
+                src="/lovable-uploads/e20e7f97-3e9c-43ad-a44f-0081c948e9df.png" 
+                alt="Přežij TO! Logo" 
                 className="w-8 h-8 opacity-80 hover:opacity-100 transition-opacity"
               />
             </div>
-            <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">PřežijTO</span>
+            <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">Přežij TO!</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">

@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -26,12 +27,12 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col items-center justify-center mb-6">
               <img 
-                src="/lovable-uploads/019e2001-f49b-46c7-b8af-c84d58987b99.png" 
-                alt="PřežijTO Logo" 
-                className="w-32 h-32 mb-4 opacity-90"
+                src="/lovable-uploads/e20e7f97-3e9c-43ad-a44f-0081c948e9df.png" 
+                alt="Přežij TO! Logo" 
+                className="w-48 h-48 mb-6 opacity-90"
               />
               <h1 className="text-6xl md:text-8xl font-orbitron font-black text-rust-400 text-glow animate-pulse">
-                PřežijTO
+                Přežij TO!
               </h1>
             </div>
             <p className="text-xl md:text-2xl font-rajdhani text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -78,8 +79,13 @@ const Index = () => {
       </section>
 
       {/* Featured Instructors Section */}
-      <section className="py-16 px-4 bg-muted/20">
-        <div className="container mx-auto">
+      <section 
+        className="py-16 px-4 relative bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/3fec14b8-3627-4896-831d-86e3fc7c7736.png')`
+        }}
+      >
+        <div className="container mx-auto relative z-10">
           <h2 className="text-4xl font-orbitron font-bold text-center text-rust-400 mb-12">
             NAŠI INSTRUKTOŘI
           </h2>
@@ -109,8 +115,13 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto text-center">
+      <section 
+        className="py-16 px-4 relative bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/3fec14b8-3627-4896-831d-86e3fc7c7736.png')`
+        }}
+      >
+        <div className="container mx-auto text-center relative z-10">
           <h2 className="text-3xl font-orbitron font-bold text-rust-400 mb-6">
             PŘIPRAVEN NA VÝZVU?
           </h2>

@@ -114,14 +114,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section 
-        className="py-16 px-4 relative bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/3fec14b8-3627-4896-831d-86e3fc7c7736.png')`
-        }}
-      >
-        <div className="container mx-auto text-center relative z-10">
+      {/* CTA Section - Changed to solid background */}
+      <section className="py-16 px-4 bg-gradient-to-r from-rust-900/40 to-wasteland-900/40">
+        <div className="container mx-auto text-center">
           <h2 className="text-3xl font-orbitron font-bold text-rust-400 mb-6">
             PŘIPRAVEN NA VÝZVU?
           </h2>

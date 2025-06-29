@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import LoginDialog from "./LoginDialog";
 
 const Navigation = () => {
   const location = useLocation();
@@ -56,9 +56,7 @@ const Navigation = () => {
             </Link>
           </div>
 
-          <Button className="bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium">
-            PŘIHLÁŠENÍ
-          </Button>
+          <LoginDialog />
         </div>
       </div>
     </nav>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,8 @@ import Calendar from "./pages/Calendar";
 import Contact from "./pages/Contact";
 import ClientDashboard from "./pages/client/ClientDashboard";
 import ClientCourses from "./pages/client/ClientCourses";
+import ClientCoursesCurrent from "./pages/client/ClientCoursesCurrent";
+import ClientCoursesHistory from "./pages/client/ClientCoursesHistory";
 import CourseDetail from "./pages/client/CourseDetail";
 import ClientInvoices from "./pages/client/ClientInvoices";
 import ClientContracts from "./pages/client/ClientContracts";
@@ -54,6 +55,8 @@ const AppRoutes = () => {
               <Routes>
                 <Route index element={<ClientDashboard />} />
                 <Route path="courses" element={<ClientCourses />} />
+                <Route path="courses/current" element={<ClientCoursesCurrent />} />
+                <Route path="courses/history" element={<ClientCoursesHistory />} />
                 <Route path="course/:id" element={<CourseDetail />} />
                 <Route path="invoices" element={<ClientInvoices />} />
                 <Route path="contracts" element={<ClientContracts />} />

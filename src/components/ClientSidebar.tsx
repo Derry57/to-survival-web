@@ -7,7 +7,9 @@ import {
   CreditCard, 
   ShoppingBag,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Clock,
+  History
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -29,22 +31,16 @@ const ClientSidebar = () => {
   const location = useLocation();
   const [coursesOpen, setCoursesOpen] = useState(true);
   
-  const mockCourses = [
-    { id: 1, name: "Urban Survival - Praha", date: "15-17.3.2024" },
-    { id: 2, name: "Wilderness Expert", date: "22-24.3.2024" },
-    { id: 3, name: "Medical Training", date: "5-7.4.2024" },
-  ];
-
   const menuItems = [
     {
       title: "Mé kurzy",
       icon: BookOpen,
       url: "/client/courses",
       hasSubmenu: true,
-      submenu: mockCourses.map(course => ({
-        title: course.name,
-        url: `/client/course/${course.id}`,
-      }))
+      submenu: [
+        { title: "Aktuální", url: "/client/courses/current", icon: Clock },
+        { title: "Historie", url: "/client/courses/history", icon: History },
+      ]
     },
     {
       title: "Faktury",
@@ -102,7 +98,8 @@ const ClientSidebar = () => {
                                 asChild
                                 isActive={isActive(subItem.url)}
                               >
-                                <Link to={subItem.url}>
+                                <Link to={subItem.url} className="flex items-center">
+                                  <subItem.icon className="mr-2 h-4 w-4" />
                                   {subItem.title}
                                 </Link>
                               </SidebarMenuSubButton>

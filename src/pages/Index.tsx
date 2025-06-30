@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
+import UpcomingCourses from "@/components/UpcomingCourses";
 
 const Index = () => {
   const instructors = [
@@ -77,6 +78,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Upcoming Courses Section */}
+      <UpcomingCourses />
 
       {/* Featured Instructors Section */}
       <section 

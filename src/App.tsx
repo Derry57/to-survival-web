@@ -11,6 +11,12 @@ import Instructors from "./pages/Instructors";
 import Calendar from "./pages/Calendar";
 import Contact from "./pages/Contact";
 import ClientDashboard from "./pages/client/ClientDashboard";
+import ClientCourses from "./pages/client/ClientCourses";
+import CourseDetail from "./pages/client/CourseDetail";
+import ClientInvoices from "./pages/client/ClientInvoices";
+import ClientContracts from "./pages/client/ClientContracts";
+import ClientInsurance from "./pages/client/ClientInsurance";
+import ClientShop from "./pages/client/ClientShop";
 import NotFound from "./pages/NotFound";
 import ClientLayout from "./components/ClientLayout";
 
@@ -47,12 +53,12 @@ const AppRoutes = () => {
             <ClientLayout>
               <Routes>
                 <Route index element={<ClientDashboard />} />
-                <Route path="courses" element={<div>Mé kurzy</div>} />
-                <Route path="course/:id" element={<div>Detail kurzu</div>} />
-                <Route path="invoices" element={<div>Faktury</div>} />
-                <Route path="contracts" element={<div>Smlouvy</div>} />
-                <Route path="insurance" element={<div>Pojištění</div>} />
-                <Route path="shop" element={<div>Shop</div>} />
+                <Route path="courses" element={<ClientCourses />} />
+                <Route path="course/:id" element={<CourseDetail />} />
+                <Route path="invoices" element={<ClientInvoices />} />
+                <Route path="contracts" element={<ClientContracts />} />
+                <Route path="insurance" element={<ClientInsurance />} />
+                <Route path="shop" element={<ClientShop />} />
               </Routes>
             </ClientLayout>
           </ProtectedRoute>

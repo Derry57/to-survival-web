@@ -2,13 +2,81 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Award, BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+
+interface UserProgress {
+  completed_courses: number;
+  total_xp: number;
+  rank: string;
+}
+
+interface UserProfile {
+  full_name: string;
+}
 
 const ClientDashboard = () => {
-  const userStats = {
-    completedCourses: 5,
-    upcomingCourses: 2,
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
+
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch user progress
+      const { data: progressData, error: progressError } = await supabase
+        .from('user_progress')
+        .select('*')
+        .eq('id', user?.id)
+        .single();
+
+      if (progressError && progressError.code !== 'PGRST116') {
+        console.error('Error fetching user progress:', progressError);
+        toast({
+          title: "Chyba při načítání dat",
+          description: "Nepodařilo se načíst váš pokrok",
+          variant: "destructive",
+        });
+      } else {
+        setUserProgress(progressData);
+      }
+
+      // Fetch user profile
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user?.id)
+        .single();
+
+      if (profileError && profileError.code !== 'PGRST116') {
+        console.error('Error fetching user profile:', profileError);
+      } else {
+        setUserProfile(profileData);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      toast({
+        title: "Chyba při načítání dat",
+        description: "Nepodařilo se načíst vaše data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // Mock data for recent courses (this would come from a courses table in a real app)
   const recentCourses = [
     { 
       name: "Urban Survival - Praha", 
@@ -37,12 +105,37 @@ const ClientDashboard = () => {
     return `${dayName} ${day}.${month}.${year} ${hours}:${minutes}`;
   };
 
+  const upcomingCoursesCount = recentCourses.filter(course => course.status === "upcoming").length;
+  const completedCoursesCount = userProgress?.completed_courses || 0;
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-orbitron font-bold text-rust-400">
+            Dashboard
+          </h1>
+        </div>
+        <div className="text-center text-muted-foreground">
+          Načítání dat...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-orbitron font-bold text-rust-400">
-          Dashboard
-        </h1>
+        <div>
+          <h1 className="text-3xl font-orbitron font-bold text-rust-400">
+            Dashboard
+          </h1>
+          {userProfile?.full_name && (
+            <p className="text-muted-foreground mt-1">
+              Vítejte zpět, {userProfile.full_name}!
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -54,7 +147,7 @@ const ClientDashboard = () => {
                 <Award className="h-6 w-6 text-rust-400 mr-2" />
                 <span className="text-sm font-medium text-rust-400">Dokončené kurzy</span>
               </div>
-              <div className="text-2xl font-bold text-rust-400">{userStats.completedCourses}</div>
+              <div className="text-2xl font-bold text-rust-400">{completedCoursesCount}</div>
               <p className="text-sm text-muted-foreground">Úspěšně absolvovaných kurzů</p>
             </div>
           </CardContent>
@@ -67,12 +160,42 @@ const ClientDashboard = () => {
                 <BookOpen className="h-6 w-6 text-wasteland-400 mr-2" />
                 <span className="text-sm font-medium text-wasteland-400">Nadcházející kurzy</span>
               </div>
-              <div className="text-2xl font-bold text-wasteland-400">{userStats.upcomingCourses}</div>
+              <div className="text-2xl font-bold text-wasteland-400">{upcomingCoursesCount}</div>
               <p className="text-sm text-muted-foreground">Registrovaných kurzů</p>
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* User Progress Card */}
+      {userProgress && (
+        <Card className="border-rust-800/30">
+          <CardHeader>
+            <CardTitle className="text-rust-400 font-orbitron flex items-center">
+              <Award className="mr-2 h-5 w-5" />
+              Váš pokrok
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-wasteland-400">{userProgress.total_xp}</div>
+                <p className="text-sm text-muted-foreground">Celkové XP</p>
+              </div>
+              <div className="text-center">
+                <Badge variant="outline" className="text-rust-400 border-rust-600">
+                  {userProgress.rank}
+                </Badge>
+                <p className="text-sm text-muted-foreground mt-1">Aktuální hodnost</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-400">{userProgress.completed_courses}</div>
+                <p className="text-sm text-muted-foreground">Dokončených kurzů</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Recent Courses */}
       <Card className="border-rust-800/30">

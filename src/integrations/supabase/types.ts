@@ -24,6 +24,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          created_at: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_progress: {
+        Row: {
+          completed_courses: number | null
+          created_at: string | null
+          id: string
+          rank: string | null
+          total_xp: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          completed_courses?: number | null
+          created_at?: string | null
+          id: string
+          rank?: string | null
+          total_xp?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          completed_courses?: number | null
+          created_at?: string | null
+          id?: string
+          rank?: string | null
+          total_xp?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

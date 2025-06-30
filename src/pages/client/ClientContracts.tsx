@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Calendar, FileText, Eye, Shield } from "lucide-react";
+import { Download, Search, Calendar, FileText, Eye, Shield, Upload } from "lucide-react";
 
 const ClientContracts = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,7 +22,8 @@ const ClientContracts = () => {
       validTo: "2024-03-17",
       status: "active",
       downloadUrl: "#",
-      description: "Smlouva upravující podmínky účasti na kurzu městského přežití."
+      description: "Smlouva upravující podmínky účasti na kurzu městského přežití.",
+      needsSignature: false
     },
     {
       id: "SM-2024-002",
@@ -35,7 +36,8 @@ const ClientContracts = () => {
       validTo: "2024-03-24",
       status: "pending",
       downloadUrl: "#",
-      description: "Smlouva pro pokročilý kurz přežití v divočině."
+      description: "Smlouva pro pokročilý kurz přežití v divočině.",
+      needsSignature: true
     },
     {
       id: "SM-2024-003",
@@ -48,7 +50,8 @@ const ClientContracts = () => {
       validTo: "2024-12-31",
       status: "active",
       downloadUrl: "#",
-      description: "Úrazové pojištění pokrývající aktivity během kurzů přežití."
+      description: "Úrazové pojištění pokrývající aktivity během kurzů přežití.",
+      needsSignature: false
     },
     {
       id: "SM-2023-045",
@@ -61,9 +64,20 @@ const ClientContracts = () => {
       validTo: "2024-02-14",
       status: "completed",
       downloadUrl: "#",
-      description: "Smlouva pro kurz první pomoci v extrémních situacích."
+      description: "Smlouva pro kurz první pomoci v extrémních situacích.",
+      needsSignature: false
     }
   ];
+
+  const handleFileUpload = (contractId: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Here you would typically upload the file to your storage service
+      console.log(`Uploading signed document for contract ${contractId}:`, file);
+      // For now, just show an alert
+      alert(`Podepsaný dokument "${file.name}" byl úspěšně nahrán pro smlouvu ${contractId}`);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -156,7 +170,7 @@ const ClientContracts = () => {
           </div>
         </div>
         
-        <div className="flex gap-2 pt-4 border-t border-rust-800/20">
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-rust-800/20">
           <Button 
             variant="outline" 
             size="sm" 
@@ -173,6 +187,27 @@ const ClientContracts = () => {
             <Download className="h-4 w-4 mr-2" />
             Stáhnout PDF
           </Button>
+          
+          {contract.needsSignature && (
+            <div className="flex items-center gap-2">
+              <Input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                onChange={(e) => handleFileUpload(contract.id, e)}
+                className="hidden"
+                id={`upload-${contract.id}`}
+              />
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                onClick={() => document.getElementById(`upload-${contract.id}`)?.click()}
+              >
+                <Upload className="h-4 w-4 mr-2" />
+                Nahrát podepsaný dokument
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

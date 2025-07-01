@@ -2,11 +2,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { useInstructor } from "@/contexts/InstructorContext";
 import LoginDialog from "./LoginDialog";
 
 const Navigation = () => {
   const location = useLocation();
   const { user, signOut } = useAuth();
+  const { isInstructor } = useInstructor();
   const isActive = (path: string) => location.pathname === path;
 
   const handleSignOut = async () => {
@@ -69,6 +71,16 @@ const Navigation = () => {
                 }`}
               >
                 MŮJ PROFIL
+              </Link>
+            )}
+            {isInstructor && (
+              <Link
+                to="/instructor"
+                className={`text-sm font-medium transition-colors hover:text-rust-400 ${
+                  location.pathname.startsWith("/instructor") ? "text-rust-400" : "text-foreground"
+                }`}
+              >
+                INSTRUKTOR
               </Link>
             )}
           </div>

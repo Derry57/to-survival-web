@@ -43,7 +43,6 @@ const LoginDialog = () => {
         description: "Vítejte zpět!",
       });
       setIsOpen(false);
-      // Redirect will be handled by auth state change
     }
 
     setIsLoading(false);
@@ -88,6 +87,34 @@ const LoginDialog = () => {
     setIsLoading(false);
   };
 
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast({
+        title: "Chyba",
+        description: "Nejprve zadejte váš email",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/`,
+    });
+
+    if (error) {
+      toast({
+        title: "Chyba",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Email odeslán",
+        description: "Zkontrolujte svůj email pro instrukce k obnovení hesla",
+      });
+    }
+  };
+
   const resetForm = () => {
     setEmail("");
     setPassword("");
@@ -100,13 +127,13 @@ const LoginDialog = () => {
       if (!open) resetForm();
     }}>
       <DialogTrigger asChild>
-        <Button className="bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium">
+        <Button className="btn btn-primary font-medium">
           PŘIHLÁŠENÍ
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-card border-rust-800/30">
+      <DialogContent className="card">
         <DialogHeader>
-          <DialogTitle className="text-rust-400 font-orbitron text-center">
+          <DialogTitle className="text-rust-400 text-center">
             Přihlášení / Registrace
           </DialogTitle>
         </DialogHeader>
@@ -120,7 +147,7 @@ const LoginDialog = () => {
           <TabsContent value="login">
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="login-email" className="text-foreground font-rajdhani">
+                <Label htmlFor="login-email" className="label text-foreground">
                   Email
                 </Label>
                 <Input
@@ -128,12 +155,12 @@ const LoginDialog = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-background border-rust-800/30"
+                  className="input"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="login-password" className="text-foreground font-rajdhani">
+                <Label htmlFor="login-password" className="label text-foreground">
                   Heslo
                 </Label>
                 <Input
@@ -141,13 +168,22 @@ const LoginDialog = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
+                  className="input"
                   required
                 />
               </div>
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="text-sm text-rust-400 hover:text-rust-600 transition-colors"
+                >
+                  Zapomněli jste heslo?
+                </button>
+              </div>
               <Button
                 type="submit"
-                className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
+                className="w-full btn btn-primary font-medium"
                 disabled={isLoading}
               >
                 {isLoading ? "PŘIHLAŠOVÁNÍ..." : "PŘIHLÁSIT SE"}
@@ -158,7 +194,7 @@ const LoginDialog = () => {
           <TabsContent value="signup">
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signup-email" className="text-foreground font-rajdhani">
+                <Label htmlFor="signup-email" className="label text-foreground">
                   Email
                 </Label>
                 <Input
@@ -166,12 +202,12 @@ const LoginDialog = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-background border-rust-800/30"
+                  className="input"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="signup-password" className="text-foreground font-rajdhani">
+                <Label htmlFor="signup-password" className="label text-foreground">
                   Heslo
                 </Label>
                 <Input
@@ -179,13 +215,13 @@ const LoginDialog = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
+                  className="input"
                   required
                   minLength={6}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirm-password" className="text-foreground font-rajdhani">
+                <Label htmlFor="confirm-password" className="label text-foreground">
                   Potvrdit heslo
                 </Label>
                 <Input
@@ -193,14 +229,14 @@ const LoginDialog = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
+                  className="input"
                   required
                   minLength={6}
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
+                className="w-full btn btn-primary font-medium"
                 disabled={isLoading}
               >
                 {isLoading ? "REGISTROVÁNÍ..." : "REGISTROVAT SE"}

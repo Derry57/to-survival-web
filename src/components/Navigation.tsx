@@ -14,7 +14,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-rust-800/30">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
@@ -25,13 +25,13 @@ const Navigation = () => {
                 className="w-8 h-8 opacity-80 hover:opacity-100 transition-opacity"
               />
             </div>
-            <span className="font-orbitron font-bold text-xl text-rust-400 text-glow">Přežij TO!</span>
+            <span className="font-bold text-xl text-rust-400 text-glow">Přežij TO!</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
             <Link
               to="/courses"
-              className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+              className={`text-sm font-medium transition-colors hover:text-rust-400 ${
                 isActive("/courses") ? "text-rust-400" : "text-foreground"
               }`}
             >
@@ -39,7 +39,7 @@ const Navigation = () => {
             </Link>
             <Link
               to="/instructors"
-              className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+              className={`text-sm font-medium transition-colors hover:text-rust-400 ${
                 isActive("/instructors") ? "text-rust-400" : "text-foreground"
               }`}
             >
@@ -47,7 +47,7 @@ const Navigation = () => {
             </Link>
             <Link
               to="/calendar"
-              className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+              className={`text-sm font-medium transition-colors hover:text-rust-400 ${
                 isActive("/calendar") ? "text-rust-400" : "text-foreground"
               }`}
             >
@@ -55,7 +55,7 @@ const Navigation = () => {
             </Link>
             <Link
               to="/contact"
-              className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+              className={`text-sm font-medium transition-colors hover:text-rust-400 ${
                 isActive("/contact") ? "text-rust-400" : "text-foreground"
               }`}
             >
@@ -64,11 +64,11 @@ const Navigation = () => {
             {user && (
               <Link
                 to="/client"
-                className={`text-sm font-rajdhani font-medium transition-colors hover:text-rust-400 ${
+                className={`text-sm font-medium transition-colors hover:text-rust-400 ${
                   location.pathname.startsWith("/client") ? "text-rust-400" : "text-foreground"
                 }`}
               >
-                MŮJE SEKCE
+                MŮJ PROFIL
               </Link>
             )}
           </div>
@@ -76,13 +76,13 @@ const Navigation = () => {
           <div className="flex items-center space-x-3">
             {user ? (
               <>
-                <span className="text-sm font-rajdhani text-foreground">
+                <span className="text-sm text-foreground">
                   {user.email}
                 </span>
                 <Button 
                   onClick={handleSignOut}
                   variant="outline"
-                  className="border-rust-600 text-rust-600 hover:bg-rust-600 hover:text-white font-rajdhani font-medium"
+                  className="btn btn-outline font-medium"
                 >
                   ODHLÁSIT SE
                 </Button>

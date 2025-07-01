@@ -76,7 +76,7 @@ const ClientDashboard = () => {
     }
   };
 
-  // Mock data for recent courses (this would come from a courses table in a real app)
+  // Mock data for recent courses
   const recentCourses = [
     { 
       name: "Urban Survival - Praha", 
@@ -112,7 +112,7 @@ const ClientDashboard = () => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-orbitron font-bold text-rust-400">
+          <h1 className="text-3xl font-bold text-rust-400">
             Dashboard
           </h1>
         </div>
@@ -127,7 +127,7 @@ const ClientDashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-orbitron font-bold text-rust-400">
+          <h1 className="text-3xl font-bold text-rust-400">
             Dashboard
           </h1>
           {userProfile?.full_name && (
@@ -140,8 +140,8 @@ const ClientDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
+        <Card className="card">
+          <CardContent className="card-content p-6">
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <Award className="h-6 w-6 text-rust-400 mr-2" />
@@ -153,8 +153,8 @@ const ClientDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
+        <Card className="card">
+          <CardContent className="card-content p-6">
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <BookOpen className="h-6 w-6 text-wasteland-400 mr-2" />
@@ -169,21 +169,21 @@ const ClientDashboard = () => {
 
       {/* User Progress Card */}
       {userProgress && (
-        <Card className="border-rust-800/30">
-          <CardHeader>
-            <CardTitle className="text-rust-400 font-orbitron flex items-center">
+        <Card className="card">
+          <CardHeader className="card-header">
+            <CardTitle className="card-title text-rust-400 flex items-center">
               <Award className="mr-2 h-5 w-5" />
-              Váš pokrok
+              Připravenost na kurz
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="card-content">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-wasteland-400">{userProgress.total_xp}</div>
                 <p className="text-sm text-muted-foreground">Celkové XP</p>
               </div>
               <div className="text-center">
-                <Badge variant="outline" className="text-rust-400 border-rust-600">
+                <Badge variant="outline" className="badge badge-outline text-rust-400">
                   {userProgress.rank}
                 </Badge>
                 <p className="text-sm text-muted-foreground mt-1">Aktuální hodnost</p>
@@ -198,17 +198,17 @@ const ClientDashboard = () => {
       )}
 
       {/* Recent Courses */}
-      <Card className="border-rust-800/30">
-        <CardHeader>
-          <CardTitle className="text-rust-400 font-orbitron flex items-center">
+      <Card className="card">
+        <CardHeader className="card-header">
+          <CardTitle className="card-title text-rust-400 flex items-center">
             <Calendar className="mr-2 h-5 w-5" />
             Nedávné kurzy
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="card-content">
           <div className="space-y-4">
             {recentCourses.map((course, index) => (
-              <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-card/50 border border-rust-800/20">
+              <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-card border">
                 <div className="flex-1">
                   <h4 className="font-semibold text-foreground mb-2">{course.name}</h4>
                   <div className="text-sm text-muted-foreground space-y-1">
@@ -218,7 +218,7 @@ const ClientDashboard = () => {
                 </div>
                 <Badge 
                   variant={course.status === 'completed' ? 'default' : 'outline'}
-                  className={course.status === 'completed' ? 'bg-rust-600' : 'border-wasteland-600 text-wasteland-400'}
+                  className={course.status === 'completed' ? 'badge badge-default' : 'badge badge-outline text-wasteland-400'}
                 >
                   {course.status === 'completed' ? 'Dokončeno' : 'Nadcházející'}
                 </Badge>

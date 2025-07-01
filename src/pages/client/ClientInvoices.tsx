@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Search, Calendar, FileText, Eye } from "lucide-react";
+import { Download, Search, Calendar, Eye } from "lucide-react";
 
 const ClientInvoices = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,13 +60,13 @@ const ClientInvoices = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'paid':
-        return <Badge className="bg-green-600">Zaplaceno</Badge>;
+        return <Badge className="badge badge-default">Zaplaceno</Badge>;
       case 'pending':
-        return <Badge className="bg-orange-600">Čeká na úhradu</Badge>;
+        return <Badge className="badge badge-outline text-orange-600">Čeká na úhradu</Badge>;
       case 'overdue':
-        return <Badge className="bg-red-600">Po splatnosti</Badge>;
+        return <Badge className="badge badge-outline text-red-600">Po splatnosti</Badge>;
       default:
-        return <Badge variant="outline">Neznámý</Badge>;
+        return <Badge variant="outline" className="badge badge-outline">Neznámý</Badge>;
     }
   };
 
@@ -87,21 +87,13 @@ const ClientInvoices = () => {
     return filtered;
   };
 
-  const totalAmount = invoices.reduce((sum, invoice) => sum + invoice.amount, 0);
-  const paidAmount = invoices
-    .filter(invoice => invoice.status === 'paid')
-    .reduce((sum, invoice) => sum + invoice.amount, 0);
-  const pendingAmount = invoices
-    .filter(invoice => invoice.status === 'pending' || invoice.status === 'overdue')
-    .reduce((sum, invoice) => sum + invoice.amount, 0);
-
   const InvoiceCard = ({ invoice }: { invoice: typeof invoices[0] }) => (
-    <Card key={invoice.id} className="border-rust-800/30 hover:border-rust-600/50 transition-all">
-      <CardContent className="p-6">
+    <Card key={invoice.id} className="card hover:scale-105 transition-all">
+      <CardContent className="card-content p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="font-semibold text-rust-400 font-orbitron">{invoice.id}</h3>
+              <h3 className="font-semibold text-rust-400">{invoice.id}</h3>
               {getStatusBadge(invoice.status)}
             </div>
             <p className="text-foreground font-medium mb-1">{invoice.courseName}</p>
@@ -129,11 +121,11 @@ const ClientInvoices = () => {
           </div>
         </div>
         
-        <div className="flex gap-2 pt-4 border-t border-rust-800/20">
+        <div className="flex gap-2 pt-4 border-t">
           <Button 
             variant="outline" 
             size="sm" 
-            className="border-rust-600 text-rust-600 hover:bg-rust-600 hover:text-white"
+            className="btn btn-outline btn-sm"
           >
             <Eye className="h-4 w-4 mr-2" />
             Zobrazit
@@ -141,7 +133,7 @@ const ClientInvoices = () => {
           <Button 
             variant="outline" 
             size="sm" 
-            className="border-rust-600 text-rust-600 hover:bg-rust-600 hover:text-white"
+            className="btn btn-outline btn-sm"
           >
             <Download className="h-4 w-4 mr-2" />
             Stáhnout PDF
@@ -154,42 +146,12 @@ const ClientInvoices = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-orbitron font-bold text-rust-400">
+        <h1 className="text-3xl font-bold text-rust-400">
           Faktury
         </h1>
-        <Badge variant="outline" className="text-wasteland-400 border-wasteland-600">
+        <Badge variant="outline" className="badge badge-outline text-wasteland-400">
           {invoices.length} faktur
         </Badge>
-      </div>
-
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-rust-400">{totalAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Celkem fakturováno</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{paidAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Zaplaceno</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{pendingAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Čeká na úhradu</p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Search */}
@@ -200,7 +162,7 @@ const ClientInvoices = () => {
             placeholder="Hledat faktury..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
+            className="input pl-8"
           />
         </div>
       </div>

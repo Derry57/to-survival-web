@@ -9,8 +9,7 @@ import {
   ChevronDown,
   ChevronRight,
   Clock,
-  History,
-  Menu
+  History
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -68,11 +67,10 @@ const ClientSidebar = () => {
   const isActive = (url: string) => location.pathname === url;
 
   return (
-    <Sidebar className="w-64 border-r">
+    <Sidebar className="w-64 border-r border-rust-800/30">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-rust-400 font-bold">
-            <Menu className="mr-2 h-4 w-4" />
+          <SidebarGroupLabel className="text-rust-400 font-orbitron font-bold">
             Klientská sekce
           </SidebarGroupLabel>
           <SidebarGroupContent>

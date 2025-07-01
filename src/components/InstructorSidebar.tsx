@@ -6,12 +6,9 @@ import {
   FileText, 
   Settings,
   Calendar,
-  ChevronDown,
-  ChevronRight,
   Menu,
   Plus
 } from "lucide-react";
-import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -21,27 +18,26 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
 } from "@/components/ui/sidebar";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const InstructorSidebar = () => {
   const location = useLocation();
-  const [coursesOpen, setCoursesOpen] = useState(true);
   
   const menuItems = [
     {
-      title: "Kurzy",
+      title: "Všechny kurzy",
       icon: BookOpen,
       url: "/instructor/courses",
-      hasSubmenu: true,
-      submenu: [
-        { title: "Všechny kurzy", url: "/instructor/courses", icon: BookOpen },
-        { title: "Vytvořit kurz", url: "/instructor/courses/create", icon: Plus },
-        { title: "Kalendář", url: "/instructor/calendar", icon: Calendar },
-      ]
+    },
+    {
+      title: "Vytvořit kurz",
+      icon: Plus,
+      url: "/instructor/courses/create",
+    },
+    {
+      title: "Kalendář",
+      icon: Calendar,
+      url: "/instructor/calendar",
     },
     {
       title: "Účastníci",
@@ -74,45 +70,12 @@ const InstructorSidebar = () => {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  {item.hasSubmenu ? (
-                    <Collapsible open={coursesOpen} onOpenChange={setCoursesOpen}>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="w-full">
-                          <item.icon className="mr-2 h-4 w-4" />
-                          <span className="flex-1">{item.title}</span>
-                          {coursesOpen ? (
-                            <ChevronDown className="h-4 w-4" />
-                          ) : (
-                            <ChevronRight className="h-4 w-4" />
-                          )}
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.submenu?.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton
-                                asChild
-                                isActive={isActive(subItem.url)}
-                              >
-                                <Link to={subItem.url} className="flex items-center">
-                                  <subItem.icon className="mr-2 h-4 w-4" />
-                                  {subItem.title}
-                                </Link>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                      <Link to={item.url}>
-                        <item.icon className="mr-2 h-4 w-4" />
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  )}
+                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
+                    <Link to={item.url}>
+                      <item.icon className="mr-2 h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

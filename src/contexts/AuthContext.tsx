@@ -28,10 +28,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // Po přihlášení zkontroluj, zda je instruktor a přesměruj
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(async () => {
+            try {
+              const { data: instructor } = await supabase
+                .from('instructors')
+                .select('id')
+                .eq('user_id', session.user.id)
+                .single();
+              
+              if (instructor && window.location.pathname === '/') {
+                window.location.href = '/instructor';
+              }
+            } catch (error) {
+              console.log('User is not an instructor or error checking instructor status');
+            }
+          }, 100);
+        }
       }
     );
 

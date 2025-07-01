@@ -70,7 +70,7 @@ const Navigation = () => {
                   location.pathname.startsWith("/client") ? "text-rust-400" : "text-foreground"
                 }`}
               >
-                MŮJE SEKCE
+                MŮJ PROFIL
               </Link>
             )}
             {isInstructor && (

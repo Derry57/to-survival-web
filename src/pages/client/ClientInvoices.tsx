@@ -87,14 +87,6 @@ const ClientInvoices = () => {
     return filtered;
   };
 
-  const totalAmount = invoices.reduce((sum, invoice) => sum + invoice.amount, 0);
-  const paidAmount = invoices
-    .filter(invoice => invoice.status === 'paid')
-    .reduce((sum, invoice) => sum + invoice.amount, 0);
-  const pendingAmount = invoices
-    .filter(invoice => invoice.status === 'pending' || invoice.status === 'overdue')
-    .reduce((sum, invoice) => sum + invoice.amount, 0);
-
   const InvoiceCard = ({ invoice }: { invoice: typeof invoices[0] }) => (
     <Card key={invoice.id} className="border-rust-800/30 hover:border-rust-600/50 transition-all">
       <CardContent className="p-6">
@@ -160,36 +152,6 @@ const ClientInvoices = () => {
         <Badge variant="outline" className="text-wasteland-400 border-wasteland-600">
           {invoices.length} faktur
         </Badge>
-      </div>
-
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-rust-400">{totalAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Celkem fakturováno</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{paidAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Zaplaceno</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-rust-800/30">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{pendingAmount.toLocaleString()} Kč</div>
-              <p className="text-sm text-muted-foreground">Čeká na úhradu</p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Search */}

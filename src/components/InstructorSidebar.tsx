@@ -7,7 +7,8 @@ import {
   Settings,
   Calendar,
   Menu,
-  Plus
+  Plus,
+  List
 } from "lucide-react";
 import {
   Sidebar,
@@ -25,7 +26,7 @@ const InstructorSidebar = () => {
   
   const menuItems = [
     {
-      title: "Všechny kurzy",
+      title: "Mé kurzy",
       icon: BookOpen,
       url: "/instructor/courses",
     },
@@ -33,6 +34,11 @@ const InstructorSidebar = () => {
       title: "Vytvořit kurz",
       icon: Plus,
       url: "/instructor/courses/create",
+    },
+    {
+      title: "Všechny kurzy",
+      icon: List,
+      url: "/instructor/all-courses",
     },
     {
       title: "Kalendář",

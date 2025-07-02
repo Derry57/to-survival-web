@@ -173,7 +173,7 @@ const ClientDashboard = () => {
           <CardHeader>
             <CardTitle className="text-rust-400 font-orbitron flex items-center">
               <Award className="mr-2 h-5 w-5" />
-              Váš pokrok
+              Připravenost na kurz
             </CardTitle>
           </CardHeader>
           <CardContent>

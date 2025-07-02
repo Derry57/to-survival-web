@@ -20,6 +20,7 @@ const LoginDialog = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const { toast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -43,7 +44,6 @@ const LoginDialog = () => {
         description: "Vítejte zpět!",
       });
       setIsOpen(false);
-      // Redirect will be handled by auth state change
     }
 
     setIsLoading(false);
@@ -88,10 +88,36 @@ const LoginDialog = () => {
     setIsLoading(false);
   };
 
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+
+    if (error) {
+      toast({
+        title: "Chyba",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Email odeslán",
+        description: "Zkontrolujte svůj email pro pokyny k obnovení hesla",
+      });
+      setShowForgotPassword(false);
+    }
+
+    setIsLoading(false);
+  };
+
   const resetForm = () => {
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    setShowForgotPassword(false);
   };
 
   return (
@@ -107,107 +133,150 @@ const LoginDialog = () => {
       <DialogContent className="sm:max-w-[425px] bg-card border-rust-800/30">
         <DialogHeader>
           <DialogTitle className="text-rust-400 font-orbitron text-center">
-            Přihlášení / Registrace
+            {showForgotPassword ? "Obnovit heslo" : "Přihlášení / Registrace"}
           </DialogTitle>
         </DialogHeader>
         
-        <Tabs defaultValue="login" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Přihlášení</TabsTrigger>
-            <TabsTrigger value="signup">Registrace</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="login">
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="login-email" className="text-foreground font-rajdhani">
-                  Email
-                </Label>
-                <Input
-                  id="login-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-background border-rust-800/30"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="login-password" className="text-foreground font-rajdhani">
-                  Heslo
-                </Label>
-                <Input
-                  id="login-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
-                  required
-                />
-              </div>
+        {showForgotPassword ? (
+          <form onSubmit={handleForgotPassword} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="reset-email" className="text-foreground font-rajdhani">
+                Email
+              </Label>
+              <Input
+                id="reset-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-background border-rust-800/30"
+                required
+              />
+            </div>
+            <div className="space-y-2">
               <Button
                 type="submit"
                 className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
                 disabled={isLoading}
               >
-                {isLoading ? "PŘIHLAŠOVÁNÍ..." : "PŘIHLÁSIT SE"}
+                {isLoading ? "ODESÍLÁNÍ..." : "ODESLAT ODKAZ"}
               </Button>
-            </form>
-          </TabsContent>
-          
-          <TabsContent value="signup">
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="signup-email" className="text-foreground font-rajdhani">
-                  Email
-                </Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-background border-rust-800/30"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signup-password" className="text-foreground font-rajdhani">
-                  Heslo
-                </Label>
-                <Input
-                  id="signup-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
-                  required
-                  minLength={6}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password" className="text-foreground font-rajdhani">
-                  Potvrdit heslo
-                </Label>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="bg-background border-rust-800/30"
-                  required
-                  minLength={6}
-                />
-              </div>
               <Button
-                type="submit"
-                className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
-                disabled={isLoading}
+                type="button"
+                variant="ghost"
+                className="w-full text-rust-400 hover:text-rust-300"
+                onClick={() => setShowForgotPassword(false)}
               >
-                {isLoading ? "REGISTROVÁNÍ..." : "REGISTROVAT SE"}
+                Zpět na přihlášení
               </Button>
-            </form>
-          </TabsContent>
-        </Tabs>
+            </div>
+          </form>
+        ) : (
+          <Tabs defaultValue="login" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Přihlášení</TabsTrigger>
+              <TabsTrigger value="signup">Registrace</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="login">
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="login-email" className="text-foreground font-rajdhani">
+                    Email
+                  </Label>
+                  <Input
+                    id="login-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-background border-rust-800/30"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="login-password" className="text-foreground font-rajdhani">
+                    Heslo
+                  </Label>
+                  <Input
+                    id="login-password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="bg-background border-rust-800/30"
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "PŘIHLAŠOVÁNÍ..." : "PŘIHLÁSIT SE"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full text-rust-400 hover:text-rust-300 font-rajdhani"
+                  onClick={() => setShowForgotPassword(true)}
+                >
+                  Zapomněli jste heslo?
+                </Button>
+              </form>
+            </TabsContent>
+            
+            <TabsContent value="signup">
+              <form onSubmit={handleSignUp} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="signup-email" className="text-foreground font-rajdhani">
+                    Email
+                  </Label>
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-background border-rust-800/30"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-password" className="text-foreground font-rajdhani">
+                    Heslo
+                  </Label>
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="bg-background border-rust-800/30"
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password" className="text-foreground font-rajdhani">
+                    Potvrdit heslo
+                  </Label>
+                  <Input
+                    id="confirm-password"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="bg-background border-rust-800/30"
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-rust-600 hover:bg-rust-700 text-white font-rajdhani font-medium"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "REGISTROVÁNÍ..." : "REGISTROVAT SE"}
+                </Button>
+              </form>
+            </TabsContent>
+          </Tabs>
+        )}
       </DialogContent>
     </Dialog>
   );
